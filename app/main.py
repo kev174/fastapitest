@@ -22,7 +22,7 @@ class ModelName(str, Enum):
     neural_networks = "neural_networks"
     linear_regression = "linear_regression"
     
-# This is similar to a POJO but description and tax can be left out and assigned a default value
+# This is similar to a POJOs but description and tax can be left out and assigned a default value
 class Widget(BaseModel):
     name: str
     description: Union[str, None] = None
