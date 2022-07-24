@@ -33,6 +33,9 @@ fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"
 app = FastAPI()
 
 # http://127.0.0.1:8000/amznitem/ Postman POST Request with AmazonItem POJO
+# *********************************
+# See POSTMAN for POST request Body
+# *********************************
 @app.post("/amznitem/")
 async def create_item(amazonitem: AmazonItem):
     return amazonitem
@@ -51,12 +54,14 @@ async def create_item(widget_id: int, widget: Widget, query: Union[str, None] = 
     return widget_dict
 
 # http://127.0.0.1:8000/itemss/?skip=0&limit=2
+# https://b9xkhr8455.execute-api.us-east-2.amazonaws.com/dev/itemss/?skip=0&limit=2
 @app.get("/itemss/")
 async def read_item(skip: int = 0, limit: int = 10):
     return fake_items_db[skip : skip + limit]
 
 # This method allows you to add a file directory: mybucket/kevin/test.txt
 # http://127.0.0.1:8000/files/mybucket/kevin/test.txt
+# https://b9xkhr8455.execute-api.us-east-2.amazonaws.com/dev/files/mybucket/kevin/test.txt
 @app.get("/files/{file_path:path}")
 async def read_file(file_path: str):
     return {"file_path": file_path}
@@ -64,6 +69,7 @@ async def read_file(file_path: str):
 # http://127.0.0.1:8000/models/decision_tree
 # http://127.0.0.1:8000/models/neural_networks
 # http://127.0.0.1:8000/models/linear_regression
+# https://b9xkhr8455.execute-api.us-east-2.amazonaws.com/dev/models/linear_regression
 @app.get("/models/{model_name}")
 async def get_model(model_name: ModelName):
     if model_name == ModelName.decision_tree:
@@ -75,16 +81,19 @@ async def get_model(model_name: ModelName):
     return {"model_name": model_name, "message": "This is Linear Regression"}
 
 # http://127.0.0.1:8000/items/54
+# https://b9xkhr8455.execute-api.us-east-2.amazonaws.com/dev/items/56
 @app.get("/items/{item_id}")
 async def read_item(item_id: int):
     return {"item_id_string": item_id}
 
 # http://127.0.0.1:8000/item/Hi%20Kevin
+# https://b9xkhr8455.execute-api.us-east-2.amazonaws.com/dev/item/kevinsitem
 @app.get("/item/{item_id}")
 async def read_user(item_id: str):
     return {"Item_id": item_id}
 
 # http://127.0.0.1:8000/inventory/foo
+# https://b9xkhr8455.execute-api.us-east-2.amazonaws.com/dev/inventory/foo
 @app.get("/inventory/foo")
 async def read_user():
     return {"Hi ../Inventory/Foo Endpoint"}
